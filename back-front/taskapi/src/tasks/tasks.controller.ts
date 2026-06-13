@@ -9,12 +9,12 @@ import {
   ConflictException,
   NotFoundException,
   HttpCode,
-} from '@nestjs/common';
-import { TasksService } from './tasks.service';
-import { CreateTaskDto } from 'src/dto/create-task.dto';
-import { UpdateTaskDto } from 'src/dto/update-task.dto';
+} from "@nestjs/common";
+import { TasksService } from "./tasks.service";
+import { CreateTaskDto } from "src/dto/create-task.dto";
+import { UpdateTaskDto } from "src/dto/update-task.dto";
 
-@Controller('tasks')
+@Controller("tasks")
 export class TasksController {
   constructor(private tasksServices: TasksService) {}
 
@@ -23,11 +23,11 @@ export class TasksController {
     return this.tasksServices.findAll();
   }
 
-  @Get(':id')
-  async findOne(@Param('id') id: string) {
+  @Get(":id")
+  async findOne(@Param("id") id: string) {
     const task = await this.tasksServices.findOne(id);
     if (!task) {
-      throw new NotFoundException('Task not found');
+      throw new NotFoundException("Task not found");
     }
 
     return task;
@@ -40,25 +40,25 @@ export class TasksController {
     } catch (error: any) {
       // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
       if (error.code === 11000) {
-        throw new ConflictException('Task alredy exists');
+        throw new ConflictException("Task alredy exists");
       }
 
       throw error;
     }
   }
 
-  @Delete(':id')
+  @Delete(":id")
   @HttpCode(204)
-  async delete(@Param('id') id: string) {
+  async delete(@Param("id") id: string) {
     const task = await this.tasksServices.delete(id);
-    if (!task) throw new NotFoundException('Task not found');
+    if (!task) throw new NotFoundException("Task not found");
     return task;
   }
 
-  @Put(':id')
-  async update(@Param('id') id: string, @Body() body: UpdateTaskDto) {
+  @Put(":id")
+  async update(@Param("id") id: string, @Body() body: UpdateTaskDto) {
     const task = await this.tasksServices.update(id, body);
-    if (!task) throw new NotFoundException('Task not found');
+    if (!task) throw new NotFoundException("Task not found");
 
     return task;
   }

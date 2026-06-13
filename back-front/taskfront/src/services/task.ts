@@ -1,9 +1,11 @@
 import type { CreateTask, UpdateTask } from "../interfaces/tasks.interface";
 
-export const getAlltaskService = () => fetch(`/api/tasks`);
+const API_URL = import.meta.env.VITE_API_URL;
+
+export const getAlltaskService = () => fetch(`${API_URL}/tasks`);
 
 export const creatTaskService = (task: CreateTask) =>
-  fetch(`/api/tasks`, {
+  fetch(`${API_URL}/tasks`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -12,7 +14,7 @@ export const creatTaskService = (task: CreateTask) =>
   });
 
 export const editTaskService = (task: UpdateTask, id: string) =>
-  fetch(`/api/tasks/${id}`, {
+  fetch(`${API_URL}/tasks/${id}`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
@@ -21,7 +23,7 @@ export const editTaskService = (task: UpdateTask, id: string) =>
   });
 
 export const deleteTaskService = (id: string) =>
-  fetch(`/api/tasks/${id}`, {
+  fetch(`${API_URL}/tasks/${id}`, {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",
